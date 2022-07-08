@@ -220,4 +220,30 @@ def plot_files_preprocessing():
     plt.subplots_adjust(wspace=0, hspace=0.2)
     plt.savefig(os.getcwd()+'/Images/files_distribution.png', dpi=600)
 
+
     
+    
+def plot_proposed_model_accuracy_loss():
+    
+    
+    data = pd.read_csv(os.getcwd()+'/Datasets/train_val_metrics.csv')
+
+    
+    ax = plt.subplot2grid((1,2),(0,0))
+    plt.plot(data['Unnamed: 0'], data['Train Accuracy'], color='grey')
+    plt.plot(data['Unnamed: 0'], data['Validation Accuracy'], color='black')
+    plt.legend(['Train', 'Validation'])
+    plt.xlabel('Epochs')
+    plt.ylabel('Accuracy')
+    
+    
+    
+    ax = plt.subplot2grid((1,2),(0,1))
+    plt.plot(data['Unnamed: 0'], data['Train Loss'], color='grey')
+    plt.plot(data['Unnamed: 0'], data['Validation Loss'], color='black')
+    plt.legend(['Train', 'Validation'])
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    
+    plt.subplots_adjust(wspace=0.3, hspace=0.1)
+    plt.savefig(os.getcwd()+'/Images/proposed_model_train_plot.png', dpi=600)

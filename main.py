@@ -23,7 +23,9 @@ if __name__ == '__main__':
     print("7. Proposed Preprocessing: Create Dataset")
     print("8. Create PCA Dataset using processed dataset")
     print("9. Visualiation")
-    print("10. Proposed Model")
+    print("10. Proposed Model Binary Classification")
+    print("11. Proposed Model Multi Classification")
+    print("12. Plot Training and Validation")
 
    
     selection = int(input("Enter your implemention checker: "))
@@ -77,9 +79,15 @@ if __name__ == '__main__':
         principal_component_varience()
         
     elif selection ==10:
+        print("Training The model")
         from Proposed.train import trainer
         trainer(EPOCHS, BATCHSIZE)
        
-            
+    elif selection ==11:
+        from Proposed.train import trainer_multi
+        trainer_multi(EPOCHS, BATCHSIZE)
         
+    elif selection ==12:
+        from vis_utils import plot_proposed_model_accuracy_loss
+        plot_proposed_model_accuracy_loss()
        
