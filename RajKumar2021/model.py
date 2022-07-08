@@ -6,10 +6,15 @@ from sklearn.ensemble import GradientBoostingClassifier
 from data_utils import get_file_names, load_files, drop_meaningless_cols
 from RajKumar2021.data_utils import clean_dataset, load_dataset_by_authors
 from eval_tools import evaluate_model
+import time
 
 def test_model(PATH, nrows):
-     
+    
+    
     dataset = load_dataset_by_authors(PATH, nrows)
+    
+    import pdb
+    pdb.set_trace()
     
     y = dataset[' Label']
     X = dataset.drop(' Label', axis=1)
@@ -32,8 +37,10 @@ def test_model(PATH, nrows):
     print("Training")
     print(" X Shape {}, Y shape {}".format(X_train.shape, y_train.shape))
     GBModel.fit(X_train, y_train)
-    
+    start_time =time.time()
     train_predictions =  GBModel.predict(X_train)
+    execution_time = time.time()-start_time
+    print("Execution time: {}, Per sample: {}".format(execution_time, execution_time/len(X_train)))
     print("Training Report")
     evaluate_model(train_predictions, y_train)
     
