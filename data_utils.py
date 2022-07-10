@@ -7,6 +7,7 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import MinMaxScaler
 
+
 def get_file_names(PATH):
     """
     The function returns the filenames of all the datasets in the dataset folder
@@ -24,8 +25,6 @@ def get_file_names(PATH):
     return filenames
 
 
-
-
 def load_files(PATH, filenames, nrows):
     """
     1. Loading the datafiles individually
@@ -38,7 +37,7 @@ def load_files(PATH, filenames, nrows):
     Return:
         dataset
     """
-    
+
     print("************************************Loading Files******************************************")
     i = 0
     for item in filenames:
@@ -55,14 +54,13 @@ def load_files(PATH, filenames, nrows):
                 dataset = pd.concat([dataset, df1])
                 del df1
             i = i + 1
-    
-    dataset[' Label'] = dataset[' Label'].map(lambda x:0 if x == 'BENIGN' else 1)
-   
-    
+
+    dataset[' Label'] = dataset[' Label'].map(lambda x: 0 if x == 'BENIGN' else 1)
+
     print('{} Files Loaded Sucessfully'.format(i))
     print("Dataset Shape", dataset.shape)
     print("***************************Loading Files Completed******************************************")
-    
+
     return dataset
 
 
@@ -77,15 +75,13 @@ def drop_meaningless_cols(dataset, meaning_less_cols):
     """
     print("*****************************Delete Meaningless Features**********************************")
     dataset.drop(meaning_less_cols, axis=1, inplace=True)
-    
+
     for i in range(len(meaning_less_cols)):
-        print("{}. {}".format(i+1, meaning_less_cols[i]))
-    
-    
+        print("{}. {}".format(i + 1, meaning_less_cols[i]))
+
     print("Dataset Shape: ", dataset.shape)
     print("*****************************Deleted Meaningless Features**********************************")
     return dataset
-
 
 
 def drop_constant_features(dataset):
@@ -108,7 +104,6 @@ def drop_constant_features(dataset):
     for i in range(len(columns_with_one_value)):
         print("{}. {}".format(i + 1, columns_with_one_value[i]))
 
-    
     print("Dataset Shape:", dataset.shape)
     print("*******************************Droped Constant Features**************************************")
 
@@ -116,26 +111,21 @@ def drop_constant_features(dataset):
 
 
 def min_max_scaler(dataset):
-    
-    
     scaler = MinMaxScaler()
-    
-    
+
     dataset = dataset.reset_index()
     dataset.drop('index', axis=1, inplace=True)
-    
+
     dataset1 = dataset.copy()
     dataset1.drop(' Label', axis=1, inplace=True)
     features = dataset1.columns
-    
-    
-    
+
     dataset1 = scaler.fit_transform(dataset1)
-    
+
     dataset1 = pd.DataFrame(dataset1, columns=features)
-    
+
     dataset1[' Label'] = dataset[' Label']
-    
+
     return dataset1
 
 
@@ -147,7 +137,7 @@ def drop_duplicate_features(dataset):
     Return:
         dataset: modified dataset
     """
-    
+
     print("******************************Drop Duplicate Features***************************************")
     dataset1 = dataset.copy()
     dataset1.drop(' Label', axis=1, inplace=True)
@@ -155,16 +145,16 @@ def drop_duplicate_features(dataset):
     dataset1 = dataset1.T.drop_duplicates().T
 
     dataset1[' Label'] = dataset[' Label']
-    
+
     print("Droped Duplicated Features:")
-    
-    droped_features = set(dataset.columns)-set(dataset1.columns)
+
+    droped_features = set(dataset.columns) - set(dataset1.columns)
     i = 1
     for item in droped_features:
         print("{}. {}".format(i, item))
         i += 1
-    
+
     print("Dataset Shape:", dataset1.shape)
-    
+
     print("******************************Droped Duplicate Features***************************************")
     return dataset1

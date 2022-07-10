@@ -1,10 +1,9 @@
-
 import os
 
-EPOCHS = 100
-BATCHSIZE = 1024
+EPOCHS = 1
+BATCH_SIZE = 1024
 PATH = os.getcwd() + '/Data/'
-nrows = 5000
+n_rows = 50000
 
 if __name__ == '__main__':
 
@@ -21,35 +20,35 @@ if __name__ == '__main__':
     print("11. Proposed Model Multi Classification")
     print("12. Plot Training and Validation")
 
-    selection = int(input("Enter your implemention checker: "))
+    selection = int(input("Enter your implementation checker: "))
 
     if selection == 1:
         from RajKumar2021.data_utils import clean_dataset
-        clean_dataset(PATH, nrows)
+        clean_dataset(PATH, n_rows)
 
     elif selection == 2:
         from RajKumar2021.model import test_model
-        test_model(PATH, nrows)
+        test_model(PATH, n_rows)
 
     elif selection == 3:
         from Abdullah2021.data_utils import clean_dataset
-        clean_dataset(PATH, nrows)
+        clean_dataset(PATH, n_rows)
 
     elif selection == 4:
         from Abdullah2021.model import test_model
-        test_model(PATH, EPOCHS, BATCHSIZE, nrows)
+        test_model(PATH, EPOCHS, BATCH_SIZE, n_rows)
 
     elif selection == 5:
         from Devrim2022.data_utils import clean_dataset
-        clean_dataset(PATH, nrows)
+        clean_dataset(PATH, n_rows)
 
     elif selection == 6:
         from Devrim2022.model import test_model
-        test_model(PATH, EPOCHS, BATCHSIZE, nrows)
+        test_model(PATH, EPOCHS, BATCH_SIZE, n_rows)
 
     elif selection == 7:
         from Proposed.data_utils import make_datasets
-        make_datasets(PATH, nrows)
+        make_datasets(PATH, n_rows)
 
     elif selection == 8:
         from Proposed.data_utils import create_pca_dataset
@@ -72,11 +71,11 @@ if __name__ == '__main__':
 
     elif selection == 10:
         from Proposed.train import trainer
-        trainer(EPOCHS, BATCHSIZE)
+        trainer(EPOCHS, BATCH_SIZE)
 
     elif selection == 11:
         from Proposed.train import trainer_multi
-        trainer_multi(EPOCHS, BATCHSIZE)
+        trainer_multi(EPOCHS, BATCH_SIZE)
 
     elif selection == 12:
         from vis_utils import plot_proposed_model_accuracy_loss

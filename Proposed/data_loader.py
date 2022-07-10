@@ -1,14 +1,13 @@
 from torch.utils.data import Dataset
-from torchvision.transforms import transforms
 from Proposed.data_utils import weighted_random_sampler
 from torch.utils.data import DataLoader
 from torch.utils.data import random_split
-from sklearn.preprocessing import LabelEncoder
+
 import torch
 import pandas as pd
 import os
 import numpy as np
-import sys
+
 
 
 
@@ -18,7 +17,7 @@ class CIC2019(Dataset):
     def __init__(self, kind='train', n_features=10):
         if kind=='train':
             print("******************** Loaing Train PCA Dataset **********************")
-            xy = pd.read_csv(os.getcwd()+'/Datasets/train_PCA_Dataset.csv')    
+            xy = pd.read_csv(os.getcwd()+'/Datasets/train_PCA_Dataset.csv', nrows=3000)
             xy[' Label'] = xy[' Label'].apply(map_binary_class_attack)
             
             self.labels = torch.Tensor(xy[' Label'])
@@ -28,7 +27,7 @@ class CIC2019(Dataset):
         else:
             print("******************** Loaing Test PCA Dataset **********************")
 
-            xy = pd.read_csv(os.getcwd()+'/Datasets/test_PCA_Dataset.csv')
+            xy = pd.read_csv(os.getcwd()+'/Datasets/test_PCA_Dataset.csv', nrows=3000)
             xy[' Label'] = xy[' Label'].apply(map_binary_class_attack)
             
             self.labels = torch.Tensor(xy[' Label'])

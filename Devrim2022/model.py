@@ -5,10 +5,8 @@ from keras.layers import MaxPooling2D, Dense, Flatten
 from keras.layers import Concatenate
 
 from sklearn.model_selection import train_test_split
-
-from eval_tools import evaluate_model
 from Devrim2022.data_utils import clean_dataset
-
+import time
 
 def inceptin_block(layer_in):
     import pdb
@@ -52,7 +50,14 @@ def test_model(PATH,EPOCHS, BATCHSIZE, nrows):
     
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
     model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=EPOCHS, batch_size=64)
-    
+
+    start_time = time.time()
+    pred = model.predict(X_train)
+    execution_time = time.time() - start_time
+    print("Execution time: {}, Per sample: {}".format(execution_time, execution_time / len(X_train)))
+
+
+
     
     
     
