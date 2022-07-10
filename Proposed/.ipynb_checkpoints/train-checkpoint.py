@@ -13,8 +13,8 @@ import warnings
 from torchviz import make_dot
 #from torch.utils.tensorboard import SummaryWriter
 
-#device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-device="cpu"
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#device="cpu"
 
 
 
@@ -80,7 +80,7 @@ def trainer(EPOCHS, BATCH_SIZE):
                 labels = labels.type(torch.int64)
 
                 # Forward pass
-                outputs = model(samples)
+                outputs = model(samples).to_device()
                 loss = error(outputs, labels)
 
                 # Initializing a gradient as 0 so there is no mixing of gradient among the batches
@@ -108,7 +108,7 @@ def trainer(EPOCHS, BATCH_SIZE):
                 val_acces.append(accuracy(outputs, labels))
 
 
-            start_time = time.time()
+           
             #, train_acc, val_loss, val_acc)
             train_loss = round(np.average(train_losses),4)
             train_acc = round(np.average(train_acces), 4)
@@ -183,7 +183,7 @@ def trainer_multi(EPOCHS, BATCH_SIZE):
     
     model = LCNNModelMulti()
     
-    
+    model = model.to(device)
     
    
    
@@ -215,18 +215,14 @@ def trainer_multi(EPOCHS, BATCH_SIZE):
             total_correct = 0
             train_loss = 0
 
-            #loss_idx_value = 0 # tensorboard
-
             model.train()
-            
-            
             train_bar = tqdm(train_loader, file=sys.stdout)
             for step, (samples, labels) in enumerate(train_bar):
                 
                 # Transfering samples and labels to GPU if available
                 samples, labels = samples.to(device), labels.to(device)
                 labels = labels.type(torch.int64)
-
+                
                 # Forward pass
                 outputs = model(samples)
                 loss = error(outputs, labels)

@@ -17,7 +17,7 @@ class CIC2019(Dataset):
     def __init__(self, kind='train', n_features=10):
         if kind=='train':
             print("******************** Loaing Train PCA Dataset **********************")
-            xy = pd.read_csv(os.getcwd()+'/Datasets/train_PCA_Dataset.csv', nrows=3000)
+            xy = pd.read_csv(os.getcwd()+'/Datasets/train_PCA_Dataset.csv')
             xy[' Label'] = xy[' Label'].apply(map_binary_class_attack)
             
             self.labels = torch.Tensor(xy[' Label'])
@@ -27,7 +27,7 @@ class CIC2019(Dataset):
         else:
             print("******************** Loaing Test PCA Dataset **********************")
 
-            xy = pd.read_csv(os.getcwd()+'/Datasets/test_PCA_Dataset.csv', nrows=3000)
+            xy = pd.read_csv(os.getcwd()+'/Datasets/test_PCA_Dataset.csv')
             xy[' Label'] = xy[' Label'].apply(map_binary_class_attack)
             
             self.labels = torch.Tensor(xy[' Label'])
@@ -63,7 +63,7 @@ class CIC2019Multi(Dataset):
     def __init__(self, kind='train', n_features=10):
         if kind=='train':
             print("******************** Loaing Train PCA Dataset **********************")
-            xy = pd.read_csv(os.getcwd()+'/Datasets/train_PCA_Dataset.csv', nrows=10000)    
+            xy = pd.read_csv(os.getcwd()+'/Datasets/train_PCA_Dataset.csv')    
             xy[' Label'] = xy[' Label'].apply(map_multi_class_attack)
             
             self.labels = torch.Tensor(xy[' Label'])
@@ -73,7 +73,7 @@ class CIC2019Multi(Dataset):
         else:
             print("******************** Loaing Test PCA Dataset **********************")
 
-            xy = pd.read_csv(os.getcwd()+'/Datasets/test_PCA_Dataset.csv', nrows=1000)
+            xy = pd.read_csv(os.getcwd()+'/Datasets/test_PCA_Dataset.csv')
             xy[' Label'] = xy[' Label'].apply(map_multi_class_attack)
             
             self.labels = torch.Tensor(xy[' Label'])
