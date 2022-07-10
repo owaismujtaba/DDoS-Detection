@@ -6,8 +6,8 @@ import warnings
 import sys
 import time
 
-#device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-device = "cpu"
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#device = "cpu"
 
 
 def evaluate_model(pred, labels):

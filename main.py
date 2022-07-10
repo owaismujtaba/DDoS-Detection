@@ -1,6 +1,6 @@
 import os
 
-EPOCHS = 1
+EPOCHS = 100
 BATCH_SIZE = 1024
 PATH = os.getcwd() + '/Data/'
 n_rows = 50000
