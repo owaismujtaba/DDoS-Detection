@@ -63,7 +63,7 @@ def make_datasets(PATH, nrows):
     dataset = drop_less_information_gain_features(dataset)
     dataset = drop_qasi_constant_features(dataset)
 
-    dataset.to_csv(os.getcwd() + '/Images/Processed_Dataset.csv')
+    dataset.to_csv(os.getcwd() + '/Datasets/Processed_Dataset.csv')
 
     # print(mappings)
     print("Dataset Shape", dataset.shape)
@@ -138,7 +138,7 @@ def load_dataset(PATH, nrows):
 
     # dataset.to_csv('full_dataset.csv')
 
-    # return dataset
+    return dataset
 
 
 def drop_duplicate_features(dataset):
